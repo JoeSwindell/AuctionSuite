@@ -1,4 +1,4 @@
-# Packages AuctionSuite when a version tag is pushed (git tag v0.2.0 && git push origin v0.2.0)
+# Packages AuctionSuite when a version tag is pushed (git tag v0.2.1 && git push origin v0.2.1)
 # and attaches the zip to a GitHub release. It also uploads to CurseForge / Wago once their
 # project IDs are in AuctionSuite/AuctionSuite.toc (## X-Curse-Project-ID, ## X-Wago-ID) and the
 # matching repository secrets exist (CF_API_KEY, WAGO_API_TOKEN). Without them those steps are skipped.

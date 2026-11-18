@@ -1,3 +1,9 @@
+# AuctionSuite 0.2.1
+
+- Releases are now packaged automatically from the GitHub repository. No in-game changes since
+  0.2.0.
+- The version shown by `/asuite status` now matches the TOC (it still said 0.1.0-alpha2).
+
 # AuctionSuite 0.2.0
 
 ## New

@@ -1,4 +1,4 @@
-# Uploading AuctionSuite 0.2.0 to CurseForge
+# Uploading AuctionSuite 0.2.1 to CurseForge
 
 ## 1. Create the project (first time only)
 CurseForge → Authors → Create Project → World of Warcraft → Addons.
@@ -18,8 +18,8 @@ Project → Files → Upload File.
 
 | Field | Value |
 |---|---|
-| File | `AuctionSuite-0.2.0.zip` |
-| Display name | AuctionSuite 0.2.0 |
+| File | `AuctionSuite-0.2.1.zip` |
+| Display name | AuctionSuite 0.2.1 |
 | Release type | **Alpha** |
 | Game version | WoW Forever 1.60.1 |
 | Changelog | paste `CHANGELOG.md` (type: Markdown) |
@@ -49,7 +49,7 @@ versions match, no BOMs, every file a TOC lists exists), then writes
 1. Push the repository to GitHub.
 2. Bump `## Version` in all four TOCs, add the release notes at the top of `CHANGELOG.md`, and
    commit.
-3. Tag and push the tag: `git tag v0.2.0` then `git push origin v0.2.0`.
+3. Tag and push the tag: `git tag v0.2.1` then `git push origin v0.2.1`.
 4. The workflow runs the checks, builds the zip and attaches it to a GitHub release. Tags with
    "alpha" or "beta" in them are marked as such.
 
