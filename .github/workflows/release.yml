@@ -1,0 +1,40 @@
+# Packages AuctionSuite when a version tag is pushed (git tag v0.2.0 && git push origin v0.2.0)
+# and attaches the zip to a GitHub release. It also uploads to CurseForge / Wago once their
+# project IDs are in AuctionSuite/AuctionSuite.toc (## X-Curse-Project-ID, ## X-Wago-ID) and the
+# matching repository secrets exist (CF_API_KEY, WAGO_API_TOKEN). Without them those steps are skipped.
+name: Package and release
+
+on:
+  push:
+    tags:
+      - "v*"
+  workflow_dispatch:
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install LuaJIT
+        run: sudo apt-get update && sudo apt-get install -y luajit
+
+      - name: Check Lua syntax, TOC versions and BOMs
+        run: python3 tools/package.py --check-only
+
+  release:
+    needs: check
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    env:
+      CF_API_KEY: ${{ secrets.CF_API_KEY }}
+      WAGO_API_TOKEN: ${{ secrets.WAGO_API_TOKEN }}
+      GITHUB_OAUTH: ${{ secrets.GITHUB_TOKEN }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # the packager reads tags and history for the version and changelog
+
+      - name: Package and upload
+        uses: BigWigsMods/packager@v2

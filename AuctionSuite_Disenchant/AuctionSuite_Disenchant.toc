@@ -1,0 +1,13 @@
+## Interface: 16001
+## Title: AuctionSuite - Disenchant
+## Notes: AuctionSuite module: gear listed below the value of its disenchant materials, sorted by profit. Prices from AHledger.
+## Author: JoeSwindell
+## Version: 0.2.0
+## Dependencies: AuctionSuite
+## LoadOnDemand: 1
+## SavedVariables: AuctionSuite_DisenchantDB
+## IconTexture: Interface\Icons\INV_Enchant_Disenchant
+## X-AuctionSuite-Module: 1
+
+Tables.lua
+Disenchant.lua

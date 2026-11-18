@@ -1,0 +1,12 @@
+## Interface: 16001
+## Title: AuctionSuite - Vendor Deals
+## Notes: AuctionSuite module: auction house items listed for less than a vendor pays for them, sorted by profit.
+## Author: JoeSwindell
+## Version: 0.2.0
+## Dependencies: AuctionSuite
+## LoadOnDemand: 1
+## SavedVariables: AuctionSuite_VendorDealsDB
+## IconTexture: Interface\Icons\INV_Misc_Coin_01
+## X-AuctionSuite-Module: 1
+
+VendorDeals.lua

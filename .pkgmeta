@@ -1,0 +1,27 @@
+# BigWigs packager (https://github.com/BigWigsMods/packager) settings.
+# The repository holds four addon folders side by side; the package is one zip with all four.
+package-as: AuctionSuite
+
+move-folders:
+  AuctionSuite/AuctionSuite: AuctionSuite
+  AuctionSuite/AuctionSuite_SuffixFinder: AuctionSuite_SuffixFinder
+  AuctionSuite/AuctionSuite_Disenchant: AuctionSuite_Disenchant
+  AuctionSuite/AuctionSuite_VendorDeals: AuctionSuite_VendorDeals
+
+ignore:
+  - README.md
+  - UPLOAD.md
+  - CHANGELOG.md
+  - curseforge-description.md
+  - curseforge-icon.png
+  - tools
+  - dist
+  - "*.zip"
+
+manual-changelog:
+  filename: CHANGELOG.md
+  markup-type: markdown
+
+# CurseForge relation: AHledger is required. Check the slug matches AHledger's CurseForge page.
+required-dependencies:
+  - ahledger

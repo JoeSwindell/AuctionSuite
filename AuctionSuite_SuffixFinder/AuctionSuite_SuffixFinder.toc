@@ -1,0 +1,13 @@
+## Interface: 16001
+## Title: AuctionSuite - Suffix Finder
+## Notes: AuctionSuite module: browse auction house gear by random suffix ("of the Tiger") with slot, type, level and price filters.
+## Author: JoeSwindell
+## Version: 0.2.0
+## Dependencies: AuctionSuite
+## LoadOnDemand: 1
+## SavedVariables: AuctionSuite_SuffixFinderDB
+## IconTexture: Interface\Icons\INV_Sword_39
+## X-AuctionSuite-Module: 1
+
+Core.lua
+UI.lua

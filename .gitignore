@@ -1,0 +1,11 @@
+# Built packages (tools/package.py writes to dist/, the BigWigs packager to .release/)
+dist/
+.release/
+*.zip
+
+# Editors and OS
+.vscode/
+*.code-workspace
+Thumbs.db
+desktop.ini
+.DS_Store

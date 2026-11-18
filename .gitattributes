@@ -1,0 +1,5 @@
+# Text files are stored with LF; the game reads LF and CRLF alike.
+* text=auto eol=lf
+*.png binary
+*.tga binary
+*.blp binary
