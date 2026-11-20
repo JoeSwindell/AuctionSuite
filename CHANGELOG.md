@@ -1,3 +1,13 @@
+# AuctionSuite 0.2.2
+
+## Disenchant page
+- **Value is now per item:** what one disenchant most likely gives you, at the lowest quantity
+  (75% Vision Dust ×2-5 counts as 2 Vision Dust), after the 5% cut. Profit, minimum return and
+  the bought-items total use that value. Previously it was the average over many disenchants.
+- The tooltip greys out the results that aren't counted and names the counted one
+  ("Value: 2 Vision Dust, after 5% cut").
+- New `/asd average` switches back to the average over many disenchants.
+
 # AuctionSuite 0.2.1
 
 - Releases are now packaged automatically from the GitHub repository. No in-game changes since

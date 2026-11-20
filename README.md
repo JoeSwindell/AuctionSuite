@@ -32,7 +32,7 @@ Copy (or junction) the four folders into `World of Warcraft\_forever_\Interface\
 - **Disenchant** needs no setup. It refreshes when the house opens and whenever new listing data
   arrives. Hover a deal to see the material breakdown. Clicking a deal also searches the house for
   the current price of each material it can give and re-values it. Click it to find that auction on the house,
-  then click **Buy**. The list shows item, buyout, expected value and profit; the
+  then click **Buy**. The list shows item, buyout, value and profit; the
   likely materials are in the hover tooltip. The search box filters deals by name as you type. By
   default every profitable deal is shown (min profit 1 copper, no minimum return); both limits can
   be raised at the top right. Min profit takes gold, silver and copper ("1g 50s 25c", "1g50s",
@@ -171,8 +171,11 @@ level. The item levels below are those bracket levels.
   1 Nexus (56-60), 1-2 Nexus (61+).
 - **Material value:** `min(AHledger median, lowest listed now)`. Lesser and greater essences are
   each worth at least a third (or three times) the other, since they convert.
-- **Expected value** = sum of chance × average quantity × value, × 0.95 (the auction house cut).
-- **Deal:** profit = expected value × count − buyout, more than zero by default. These defaults
+- **Value** = what one disenchant most likely gives: the most likely material at its lowest
+  quantity × its value, × 0.95 (the auction house cut). 75% Vision Dust ×2-5 counts as 2 Vision
+  Dust. `/asd average` switches to the average over many disenchants instead (sum of chance ×
+  average quantity × value, × 0.95).
+- **Deal:** profit = value × count − buyout, more than zero by default. These defaults
   carry over the user's choices from the earlier standalone DisenchantDeals.
   Your own listings and items that can't be disenchanted (shirts, tabards, fishing poles, bags)
   are skipped.

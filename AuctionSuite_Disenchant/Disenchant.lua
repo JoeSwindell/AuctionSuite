@@ -18,6 +18,8 @@ ns.DE = DE
 local DEFAULTS = {
     minProfit = 1,      -- copper after the 5% cut: show every deal (the user's choice in DisenchantDeals)
     minReturn = 0,      -- percent of the buyout
+    average = false,    -- false: value one disenchant at its most likely result, lowest quantity
+                        -- true: value it at the average over many disenchants (/asd average)
     sortKey = "profit",
     sortAsc = false,
     stats = { bought = 0, spent = 0, expected = 0 },
@@ -103,20 +105,40 @@ local function BuildMatValues()
     end
 end
 
--- Expected material value of one item after the auction house cut, and whether every material
--- in its table had a price.
+-- The most likely result of a disenchant (highest chance; the first listed on a tie).
+local function TopYield(yield)
+    local top
+    for _, y in ipairs(yield) do
+        if not top or y[4] > top[4] then top = y end
+    end
+    return top
+end
+
+-- Material value of one item after the auction house cut, and whether every counted material had
+-- a price. By default this is one disenchant: the most likely material at its lowest quantity
+-- (75% Vision Dust x2-5 counts as 2 Vision Dust). With `average` on, it is the average over many
+-- disenchants: chance x average quantity x price, summed over every result.
 local evCache
 local function ExpectedValue(info)
     local cached = evCache[info]
     if cached then return cached[1], cached[2] end
     local total, complete, any = 0, true, false
-    for _, y in ipairs(info.yield) do
-        local value = matValue[y[1]]
+    if db.average then
+        for _, y in ipairs(info.yield) do
+            local value = matValue[y[1]]
+            if value then
+                total = total + value * ((y[2] + y[3]) / 2) * y[4]
+                any = true
+            else
+                complete = false
+            end
+        end
+    else
+        local top = TopYield(info.yield)
+        local value = top and matValue[top[1]]
         if value then
-            total = total + value * ((y[2] + y[3]) / 2) * y[4]
+            total = value * top[2]
             any = true
-        else
-            complete = false
         end
     end
     local ev = any and total * (1 - T.AH_CUT) or nil
@@ -288,21 +310,32 @@ local function ShowDealTooltip(rowFrame, d)
     tip:AddLine(("%s, %s"):format(d.weapon and "Weapon" or "Armor",
         _G["ITEM_QUALITY" .. d.quality .. "_DESC"] or ""), 0.8, 0.8, 0.8)
     tip:AddLine("Likely materials:", 1, 0.82, 0)
+    local top = TopYield(d.yield)
     for _, y in ipairs(d.yield) do
         local v = matValue and matValue[y[1]]
         local pct = y[4] * 100
+        local c = (db.average or y == top) and 1 or 0.55 -- grey: not counted in the value
         tip:AddDoubleLine(("%s%% %s x %s"):format(pct >= 1 and ("%d"):format(pct + 0.5) or ("%.1f"):format(pct),
             Range(y), MatName(y[1])),
             v and (Money(v) .. " each" .. (AS.Data.HasLivePrice and AS.Data.HasLivePrice(y[1]) and " |cff00ff00(live)|r" or ""))
-                or "|cffff7f7fno price|r", 1, 1, 1, 1, 1, 1)
+                or "|cffff7f7fno price|r", c, c, c, c, c, c)
     end
     tip:AddLine(" ")
-    tip:AddDoubleLine("Expected value, after 5% cut", Money(d.ev), 1, 1, 1, 1, 1, 1)
+    if db.average then
+        tip:AddDoubleLine("Average value, after 5% cut", Money(d.ev), 1, 1, 1, 1, 1, 1)
+    else
+        tip:AddDoubleLine(("Value: %d %s, after 5%% cut"):format(top and top[2] or 0, top and MatName(top[1]) or "?"),
+            Money(d.ev), 1, 1, 1, 1, 1, 1)
+    end
     tip:AddDoubleLine("Buyout" .. (d.count > 1 and (" (" .. d.count .. ")") or ""), Money(d.buyout), 1, 1, 1, 1, 1, 1)
     tip:AddDoubleLine("Profit", Money(d.profit) .. (" (%d%%)"):format(d.roi * 100 + 0.5), 0, 1, 0, 0, 1, 0)
     if not d.complete then tip:AddLine("Some materials have no price; counted as zero.", 1, 0.5, 0.5, true) end
     if d.guessed then tip:AddLine("No table entry for an epic this low; one shard assumed.", 1, 0.5, 0.5, true) end
-    tip:AddLine("The value is an average over many disenchants; one item can come out lower.", 0.6, 0.6, 0.6, true)
+    if db.average then
+        tip:AddLine("Value is the average over many disenchants; one item can come out lower. /asd average switches back.", 0.6, 0.6, 0.6, true)
+    else
+        tip:AddLine("Value is the most likely result at its lowest quantity. /asd average values it at the average instead.", 0.6, 0.6, 0.6, true)
+    end
     tip:AddLine("Right-click: hide this item (e.g. it can't be disenchanted)", 0.6, 0.8, 1)
     tip:AddLine(Prices.CREDIT, 0.5, 0.5, 0.5)
     tip:Show()
@@ -653,12 +686,17 @@ SlashCmdList.AUCTIONSUITEDE = function(msg)
             AS.Print(((GetItemInfo(id)) or ("item " .. id)) .. " will be listed again.")
         end
         DE.Evaluate()
+    elseif cmd == "average" or cmd == "avg" then
+        db.average = not db.average
+        AS.Print(db.average and "Disenchant value: average over many disenchants"
+            or "Disenchant value: one disenchant, most likely result at its lowest quantity")
+        DE.Evaluate()
     elseif cmd == "hidden" then
         local n = 0
         for hid, name in pairs(db.excluded) do AS.Print(("hidden: %s (%d)"):format(tostring(name), hid)); n = n + 1 end
         for bid, name in pairs(T.NOT_DISENCHANTABLE) do AS.Print(("built in: %s (%d) - can't be disenchanted"):format(name, bid)) end
         if n == 0 then AS.Print("you haven't hidden any items.") end
     else
-        AS.Print("/asd hide <item> | /asd unhide <item> | /asd hidden - right-click a deal to hide it")
+        AS.Print("/asd hide <item> | /asd unhide <item> | /asd hidden - right-click a deal to hide it | /asd average - toggle average value")
     end
 end

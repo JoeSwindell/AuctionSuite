@@ -20,10 +20,12 @@ Gear on the auction house that's worth more as enchanting materials than it cost
 
 - Every green, blue and epic weapon or armor piece with a buyout is valued against current
   prices for dusts, essences, shards and Nexus Crystals.
-- Listings below their disenchant value are shown best profit first: item, buyout, expected
-  value and profit.
+- Listings below their disenchant value are shown best profit first: item, buyout, value and
+  profit. The value is what one disenchant most likely gives you, at the lowest quantity (75%
+  Vision Dust ×2-5 counts as 2 Vision Dust). `/asd average` switches to the average over many
+  disenchants.
 - **Hover a deal for the likely materials:** each material's chance, quantity and price, plus
-  the expected value and your profit.
+  the value and your profit.
 - **Live check on click:** clicking a deal looks up that auction and searches the current price
   of every material it can disenchant into, then recalculates the value and profit before you
   buy.
@@ -76,6 +78,7 @@ the rest.
 | `/asf` | Open the Suffix Finder page |
 | `/asd hidden` | List items hidden from Disenchant Deals |
 | `/asd hide <item>` / `/asd unhide <item>` | Hide an item from Disenchant Deals, or bring it back |
+| `/asd average` | Value disenchants at the average over many instead of the most likely result |
 | `/asv` | Open the Vendor Deals page (`/asv hidden`, `/asv unhide <id>`) |
 
 ## Plays nicely with AHledger
@@ -103,7 +106,7 @@ download documents the module API.
 - If you also have the standalone **DisenchantDeals**, you only need one of them. Both use
   AHledger's prices; AuctionSuite's Disenchant page adds search and sits alongside the other
   tools.
-- Disenchant values are averages over many disenchants. A single item can come out lower, so
-  bigger margins are safer.
+- The disenchant value is the most likely result, which you get most of the time (about 75%
+  for green items). The rest of the time you get a different material, worth more or less.
 
 Free, no automation, nothing paywalled. Feedback and bug reports are welcome in the comments.
