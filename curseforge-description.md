@@ -2,9 +2,9 @@
 
 **Auction house tools for World of Warcraft: Forever, in one window, built on AHledger's prices.**
 
-> **Alpha:** this is an early test release, so expect rough edges. Buying through AuctionSuite's
-> Buy button is still being tested. If the game blocks a purchase, buy the item in Blizzard's
-> Buy tab instead, and please tell us in the comments.
+> **New release:** AuctionSuite is young, so please report anything odd in the comments. If the
+> game ever blocks a purchase through AuctionSuite's **Buy** button, buy the item in Blizzard's
+> Buy tab instead and let us know.
 
 AuctionSuite adds one window beside the auction house, with a page for each tool. It doesn't
 run its own price scans or keep its own price database. It uses **AHledger's** prices and reads
@@ -94,8 +94,8 @@ the rest.
 ## For addon authors
 
 AuctionSuite is modular. A new tool is a small load-on-demand addon that registers with one call
-and gets the shared listing data, prices, list widgets and purchase bar. The README in the
-download documents the module API.
+and gets the shared listing data, prices, list widgets and purchase bar. The module API is
+documented in the README on [GitHub](https://github.com/JoeSwindell/AuctionSuite).
 
 ## Notes
 
@@ -103,10 +103,9 @@ download documents the module API.
 - If no full listing has arrived this session (the server allows one about every 15 minutes),
   the pages use AHledger's last saved scan and show how old it is. Clicking a deal checks the
   live house before **Buy** is enabled.
-- If you also have the standalone **DisenchantDeals**, you only need one of them. Both use
-  AHledger's prices; AuctionSuite's Disenchant page adds search and sits alongside the other
-  tools.
 - The disenchant value is the most likely result, which you get most of the time (about 75%
   for green items). The rest of the time you get a different material, worth more or less.
+
+- Source code, changelog and releases: [github.com/JoeSwindell/AuctionSuite](https://github.com/JoeSwindell/AuctionSuite).
 
 Free, no automation, nothing paywalled. Feedback and bug reports are welcome in the comments.
