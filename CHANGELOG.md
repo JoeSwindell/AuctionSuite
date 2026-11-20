@@ -1,3 +1,10 @@
+# AuctionSuite 0.2.3
+
+- Releases now upload to CurseForge automatically (project 1814809). No in-game changes since
+  0.2.2.
+- The release workflow uses actions/checkout v5, which runs on Node 24 (GitHub's Node 20
+  deprecation warning is gone).
+
 # AuctionSuite 0.2.2
 
 ## Disenchant page

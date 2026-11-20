@@ -2,10 +2,11 @@
 ## Title: AuctionSuite
 ## Notes: Auction house suite: one tab with a page per module (Suffix Finder, Disenchant and Vendor deals). Prices come from AHledger.
 ## Author: JoeSwindell
-## Version: 0.2.2
+## Version: 0.2.3
 ## Dependencies: AHledger
 ## SavedVariables: AuctionSuiteDB
 ## IconTexture: Interface\Icons\INV_Misc_Coin_02
+## X-Curse-Project-ID: 1814809
 
 Core.lua
 Data.lua

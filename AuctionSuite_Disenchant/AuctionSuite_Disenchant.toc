@@ -2,7 +2,7 @@
 ## Title: AuctionSuite - Disenchant
 ## Notes: AuctionSuite module: gear listed below the value of its disenchant materials, sorted by profit. Prices from AHledger.
 ## Author: JoeSwindell
-## Version: 0.2.2
+## Version: 0.2.3
 ## Dependencies: AuctionSuite
 ## LoadOnDemand: 1
 ## SavedVariables: AuctionSuite_DisenchantDB
