@@ -1,3 +1,8 @@
+# AuctionSuite 0.2.4
+
+- Release notes on CurseForge and GitHub now show only the newest version's changes instead of
+  the whole changelog. No in-game changes since 0.2.3.
+
 # AuctionSuite 0.2.3
 
 - Releases now upload to CurseForge automatically (project 1814809). No in-game changes since

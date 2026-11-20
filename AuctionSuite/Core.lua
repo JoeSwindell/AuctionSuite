@@ -14,7 +14,7 @@ local AS = {}
 ns.AS = AS
 AuctionSuite = AS -- the one global the core defines; modules reach the core through it
 
-AS.VERSION = "0.2.3"
+AS.VERSION = "0.2.4"
 AS.ADDON = ADDON
 AS.modules = {}      -- name -> module definition
 AS.moduleList = {}   -- definitions sorted by order, then title

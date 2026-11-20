@@ -1,4 +1,4 @@
-# Packages AuctionSuite when a version tag is pushed (git tag v0.2.3 && git push origin v0.2.3)
+# Packages AuctionSuite when a version tag is pushed (git tag v0.2.4 && git push origin v0.2.4)
 # and attaches the zip to a GitHub release. It also uploads to CurseForge / Wago once their
 # project IDs are in AuctionSuite/AuctionSuite.toc (## X-Curse-Project-ID, ## X-Wago-ID) and the
 # matching repository secrets exist (CF_API_KEY, WAGO_API_TOKEN). Without them those steps are skipped.
@@ -35,6 +35,19 @@ jobs:
       - uses: actions/checkout@v5
         with:
           fetch-depth: 0 # the packager reads tags and history for the version and changelog
+
+      - name: Keep only the newest changelog section
+        # CHANGELOG.md lists every version; the release notes should show only this one.
+        # This rewrites the file in the runner's checkout only, nothing is committed.
+        run: |
+          python3 - <<'PY'
+          import re
+          text = open("CHANGELOG.md", encoding="utf-8").read()
+          sections = re.split(r"(?m)^(?=# )", text)
+          newest = next(s for s in sections if s.startswith("# "))
+          open("CHANGELOG.md", "w", encoding="utf-8").write(newest.rstrip() + "\n")
+          print(newest)
+          PY
 
       - name: Package and upload
         uses: BigWigsMods/packager@v2
